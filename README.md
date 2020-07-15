@@ -29,7 +29,7 @@ Car Keypoint 3D Localization project provide methods for 3D car localization bas
 | --save_root           | Yes      | Path for saving the output files 
 | --vis_preds           | No       | whether to visulaze the preditions or not
 
-## Run Examples
+## Examples
 ```shell
 # bash scripts/run_hdfs_data_pred.sh ${brand} ${city} ${store} ${date} ${time}
 ~$ bash scripts/run_hdfs_data_pred.sh NANLING guangzhou qybc 20200202 13:00

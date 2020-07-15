@@ -1,0 +1,6 @@
+[submodule "maskrcnn-benchmark"]
+	path = maskrcnn-benchmark
+	url = git@github.com:facebookresearch/maskrcnn-benchmark.git
+[submodule "CameraInfos"]
+	path = CameraInfos
+	url = git@github.com:yfZhong/CameraInfos.git

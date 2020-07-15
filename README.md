@@ -10,8 +10,7 @@ Car Keypoint 3D Localization project provide methods for 3D car localization bas
 ## Environment
 ### Build the docker 
 ```shell
-~$ cd docker/
-~$ bash build_docker.sh
+~$ bash docker/build_docker.sh
 ```
 
 ## Parameters
@@ -32,8 +31,8 @@ Car Keypoint 3D Localization project provide methods for 3D car localization bas
 
 ## Run Examples
 ```shell
-~$ cd scripts
-~$ bash run_hdfs_data_pred.sh NANLING guangzhou qybc 20200202
+# bash scripts/run_hdfs_data_pred.sh ${brand} ${city} ${store} ${date} ${time}
+~$ bash scripts/run_hdfs_data_pred.sh NANLING guangzhou qybc 20200202 13:00
 ```
 Main steps：
 - download data

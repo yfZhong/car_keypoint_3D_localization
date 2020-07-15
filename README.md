@@ -31,26 +31,26 @@ Car Keypoint 3D Localization project provide methods for 3D car localization bas
 
 ## Examples
 ```shell
-# bash scripts/run_hdfs_data_pred.sh ${brand} ${city} ${store} ${date} ${time}
+#  bash scripts/run_hdfs_data_pred.sh ${brand} ${city} ${store} ${date} ${time}
 ~$ bash scripts/run_hdfs_data_pred.sh NANLING guangzhou qybc 20200202 13:00
 ```
 Main steps：
-- download data
+- Download data
 ```shell
 ~$ bash scripts/download.sh
 ```
-- run pred
+- Run pred
 ```shell
 ~$ python lib/pred_imgs.py \
-    --config-file-box ../maskrcnn-benchmark/configs/caffe2/e2e_faster_rcnn_R_101_FPN_1x_caffe2_4s_shop.yaml \
-    --config-file-kp ../maskrcnn-benchmark/configs/caffe2/e2e_keypoint_only_rcnn_R_101_FPN_1x_caffe2_4s_shop_pad.yaml \
+    --config-file-box ./maskrcnn-benchmark/configs/caffe2/e2e_faster_rcnn_R_101_FPN_1x_caffe2_4s_shop.yaml \
+    --config-file-kp ./maskrcnn-benchmark/configs/caffe2/e2e_keypoint_only_rcnn_R_101_FPN_1x_caffe2_4s_shop_pad.yaml \
     --confidence-threshold 0.95 \
     --img_root hdfs_data \
     --program_time_list program_id_time.txt \
     --save_root hdfs_data \
     --vis_preds True
 ```
-- upload result
+- Upload result
 ```shell
 ~$ bash scripts/upload.sh
 ```

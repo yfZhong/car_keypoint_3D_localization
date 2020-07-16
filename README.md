@@ -50,7 +50,7 @@ Main steps：
     --save_root hdfs_data \
     --vis_preds True
 ```
-- Upload result
+- Upload the final outputs
 ```shell
 ~$ bash scripts/upload.sh
 ```

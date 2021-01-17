@@ -39,24 +39,21 @@ Car Keypoint 3D Localization project provide methods for 3D car localization bas
 
 ```shell
 # 
-~$ bash run_car_localization.sh \
- --store NANLING/guangzhou/qybc \
- --date 20201216 \
- --start_time 130000 \
- --data_root /root/code/car_localization/hdfs_data \
- --model_root /root/code/car_localization/models \
- --camera_info_dir /root/code/car_localization/CameraInfos \
- --use_gpu 1 \
- --download_model 0 \
- --download_image 1 \
- --upload_to_hdfs 1\
- --hdfs_pose_root /bj/prod/*** 
+~$ bash scripts/run_car_localization.sh \
+     --store NANLING/guangzhou/qybc \
+     --date 20201216 \
+     --start_time 130000 \
+     --data_root /root/code/car_localization/hdfs_data \
+     --model_root /root/code/car_localization/models \
+     --camera_info_dir /root/code/car_localization/CameraInfos \
+     --use_gpu 1 \
+     --download_model 1 \
+     --download_image 1 \
+     --upload_to_hdfs 1\
+     --hdfs_pose_root /bj/yfzhong
 ```
 Main steps：
-- Prepare
-```shell
-# prepare models and input images
-```
+- Prepare models and input images
 - Run prediction
 ```shell
 ~$ # run pred

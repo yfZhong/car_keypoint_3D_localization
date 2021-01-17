@@ -1,48 +1,35 @@
 #!/usr/bin/env bash
 
-if [ -f "program_id_time.txt" ]
+
+source argparse.bash || exit 1
+argparse "$@" <<EOF || exit 1
+parser.add_argument('--store', default="GACNE/guangzhou/cw")
+parser.add_argument('--data_dir', default='/root/code/car_localization/data')
+parser.add_argument('--start_time', default='130000')
+parser.add_argument('--date', default='20201001')
+EOF
+
+
+#if [ -z "$day" ]; then
+#    day=$(date  +"%Y%m%d")
+#    #day=$(date  +"%Y%m%d" -d  "- 1 days")
+#fi
+#echo $customer $city $store $day
+
+fold=/bj/yfzhong/${STORE}/car/images/${DATE}
+
+
+rm -rf ${local_fold}/* || true
+mkdir -p ${local_fold} || true
+
+echo hdfscli download ${fold}/_done_ ${local_fold}/
+hdfscli download ${fold}/_done_ ${local_fold} || true
+if [ ! -f ${local_fold}/_done_ ]
 then
-    rm program_id_time.txt
+  echo "No date done signal detected. Images have not been prepared!"
+  exit
 fi
-
-download(){
-    IFS=$'\t'
-    read -a customer <<<$1
-    read -a city <<<$2
-    read -a store <<<$3
-    read -a day <<<$4
-    
-    if [ -z "$day" ]; then
-        day=$(date  +"%Y%m%d")
-        #day=$(date  +"%Y%m%d" -d  "- 1 days")
-    fi
-    echo $customer $city $store $day
-
-    fold=${hdfs_root}/${customer}/${city}/${store}/car/images/$day
-    #hdfs dfs -test -e ${fold}/_done_
-    #if [ ! $? == 0 ];
-    #then
-    #	echo "No available image data!"
-    #	exit
-    #fi
-    local_images_fold=./hdfs_data/${customer}/${city}/${store}/car/images
-    local_fold=${local_images_fold}/$day
-    if [ ! -d ${local_fold} ]
-    then
-    	mkdir -p ${local_images_fold}
-	hdfscli download -f ${fold} ${local_images_fold}/
-    fi
-    
-    if [ ! -d ${local_fold} ]
-    then
-	echo "No available image data!"
-	exit
-    fi
-    echo ${customer}$'\t'${city}$'\t'${store}$'\t'${day}$'\t'130000 >>'program_id_time.txt'
-    echo "Download data: "$fold
-
-}
-
-export -f download
-
-cat "program_id.txt" | xargs -I {} bash -c "download {}"
+echo hdfscli download -f ${fold}/ch* ${local_fold}/
+hdfscli download -f ${fold}/ch* ${local_fold}/
+#echo ${customer}$'\t'${city}$'\t'${store}$'\t'${day}$'\t'${start_time} >>'program_id_time.txt'
+echo "Download data to : "$fold

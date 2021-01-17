@@ -1,43 +1,56 @@
 #!/usr/bin/env bash
 
-upload(){
-    IFS=$'\t'
-    read -a customer <<<$1
-    read -a city <<<$2
-    read -a store <<<$3
-    read -a day <<<$4
-    read -a time <<<$5
-    time="${time:0:6}"
-    
-    #echo $customer $city $store $day $time    
-    local_pose_fold=./hdfs_data/${customer}/${city}/${store}/car/pose/$day
-    if [ ! -f ${local_pose_fold}/pose.json ];
-    then
-	echo "No pose.json file generated!"
-	exit
-    fi
-    cd ${local_pose_fold}
-    tar cvf crop_images.tar crop_images
-    tar cvf vis.tar vis
-    cd /root/code/car_localization/
+source argparse.bash || exit 1
+argparse "$@" <<EOF || exit 1
+parser.add_argument('--store', default='GACNE/guangzhou/cw')
+parser.add_argument('--data_root', default='/root/code/car_localization/data')
+parser.add_argument('--date', default='20201001')
+parser.add_argument('--hdfs_root', default='/bj/yfzhong/')
+EOF
 
-    hdfs_pose=${hdfs_root}/customer/${customer}/${city}/${store}/car/pred_pose
-    hdfs_pose_fold=${hdfs_pose}/$day
-    #hadoop fs -test -d ${hdfs_pose_fold}
-    #if [ $? == 0 ]; then
-    #    #echo "exists"
-    #    hdfscli delete -r ${hdfs_pose_fold}
-    #fi
-    hdfscli delete -rf ${hdfs_pose_fold}
-    hdfscli mkdir ${hdfs_pose_fold}
-    hdfscli upload ${local_pose_fold}/pose.jpg ${hdfs_pose_fold}/
-    hdfscli upload ${local_pose_fold}/pose.json ${hdfs_pose_fold}/
-    hdfscli upload ${local_pose_fold}/crop_images.tar ${hdfs_pose_fold}/
-    hdfscli upload ${local_pose_fold}/vis.tar ${hdfs_pose_fold}/
-    echo "upload" ${local_pose_fold} "to" ${hdfs_pose_fold}
+local_pose_fold=${DATA_ROOT}/${STORE}/car/pose/${DATE}
+if [ ! -f ${local_pose_fold}/pose.json ]; then
+  echo "No pose.json file generated!"
+  exit
+fi
 
+cd ${local_pose_fold}
+[ -d crop_images ] && tar cf crop_images.tar crop_images
+[ -d vis ] && mv vis/img images && tar cf images.tar images
+[ -d vis ] && mv vis debug && tar cf debug.tar debug
+cd /root/code/car_localization/
 
-}
-export -f upload
+hdfs_pose=${HDFS_ROOT}/${STORE}/car/pred_pose
+hdfs_pose_fold=${hdfs_pose}/${DATE}
 
-cat "program_id_time.txt" | xargs -I {} bash -c "upload {}"
+hdfscli mkdir ${hdfs_pose_fold}
+echo "Files in ${local_pose_fold}:"
+echo `ls ${local_pose_fold}`
+[ -f ${local_pose_fold}/pose.jpg ] &&
+echo hdfscli upload -f  ${local_pose_fold}/pose.jpg ${hdfs_pose_fold}/ &&
+hdfscli upload -f  ${local_pose_fold}/pose.jpg ${hdfs_pose_fold}/
+
+[ -f ${local_pose_fold}/pose.json ] &&
+echo hdfscli upload -f ${local_pose_fold}/pose.json ${hdfs_pose_fold}/ &&
+hdfscli upload -f ${local_pose_fold}/pose.json ${hdfs_pose_fold}/
+
+[ -f ${local_pose_fold}/crop_images.tar ] &&
+echo hdfscli upload -f ${local_pose_fold}/crop_images.tar ${hdfs_pose_fold}/ &&
+hdfscli upload -f ${local_pose_fold}/crop_images.tar ${hdfs_pose_fold}/
+
+[ -f ${local_pose_fold}/images.tar ] &&
+echo hdfscli upload -f ${local_pose_fold}/images.tar ${hdfs_pose_fold}/ &&
+hdfscli upload -f ${local_pose_fold}/images.tar ${hdfs_pose_fold}/
+
+[ -f ${local_pose_fold}/debug.tar ] &&
+echo hdfscli upload -f ${local_pose_fold}/debug.tar ${hdfs_pose_fold}/ &&
+hdfscli upload -f ${local_pose_fold}/debug.tar ${hdfs_pose_fold}/
+
+[ -f ${local_pose_fold}/pred_2d_result.json ] &&
+echo hdfscli upload -f ${local_pose_fold}/pred_2d_result.json ${hdfs_pose_fold}/ &&
+hdfscli upload -f ${local_pose_fold}/pred_2d_result.json ${hdfs_pose_fold}/
+
+echo hdfscli upload -f image_list.csv ${hdfs_pose_fold}/
+hdfscli upload -f image_list.csv ${hdfs_pose_fold}/
+
+echo "Car localization module done."

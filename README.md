@@ -14,7 +14,7 @@ Car Keypoint 3D Localization project provide methods for 3D car localization bas
 ```
 
 ## Parameters
-#### The entry main python script is `lib/pred_imgs.py` 
+#### The entry main script is `scripts/run_car_localization.sh` 
 | Parameters            | Require |             Notes                                             |
 | --------------------- | -------- | ------------------------------------------------------------ |
 | --store               | Yes      | Store name                                                   |

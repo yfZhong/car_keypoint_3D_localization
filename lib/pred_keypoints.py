@@ -67,11 +67,11 @@ def get_boxes_kps(img, preds, kp_model, score_thr=0.99):
 
     if len(new_boxes) <=0:
         return None
-    proposal = BoxList(torch.tensor(np.array(new_boxes), device='cuda'), preds.size, mode='xyxy')
-    proposal.add_field('scores',  torch.tensor(np.array(new_scores), device='cuda'))
-    proposal.add_field('labels',  torch.tensor(np.array(new_labels), device='cuda'))
-    proposal.add_field('keypoints', CarKeypoints(torch.tensor(new_keypoints, device='cuda'), preds.size))
-    proposal.extra_fields['keypoints'].add_field('logits', torch.tensor(np.array(new_keypoints_scores), device='cuda'))
+    proposal = BoxList(torch.tensor(np.array(new_boxes), device='cpu'), preds.size, mode='xyxy')
+    proposal.add_field('scores',  torch.tensor(np.array(new_scores), device='cpu'))
+    proposal.add_field('labels',  torch.tensor(np.array(new_labels), device='cpu'))
+    proposal.add_field('keypoints', CarKeypoints(torch.tensor(new_keypoints, device='cpu'), preds.size))
+    proposal.extra_fields['keypoints'].add_field('logits', torch.tensor(np.array(new_keypoints_scores), device='cpu'))
 
     return proposal
 
@@ -143,11 +143,11 @@ def get_boxes_kps_pad(img, preds, kp_model,  score_thr=0.99):
 
     if len(new_boxes) <=0:
         return None
-    proposal = BoxList(torch.tensor(np.array(new_boxes), device='cuda'), preds.size, mode='xyxy')
-    proposal.add_field('scores',  torch.tensor(np.array(new_scores), device='cuda'))
-    proposal.add_field('labels',  torch.tensor(np.array(new_labels), device='cuda'))
-    proposal.add_field('keypoints', CarKeypoints(torch.tensor(new_keypoints, device='cuda'), preds.size))
-    proposal.extra_fields['keypoints'].add_field('logits', torch.tensor(np.array(new_keypoints_scores), device='cuda'))
+    proposal = BoxList(torch.tensor(np.array(new_boxes), device='cpu'), preds.size, mode='xyxy')
+    proposal.add_field('scores',  torch.tensor(np.array(new_scores), device='cpu'))
+    proposal.add_field('labels',  torch.tensor(np.array(new_labels), device='cpu'))
+    proposal.add_field('keypoints', CarKeypoints(torch.tensor(new_keypoints, device='cpu'), preds.size))
+    proposal.extra_fields['keypoints'].add_field('logits', torch.tensor(np.array(new_keypoints_scores), device='cpu'))
 
     return proposal
 

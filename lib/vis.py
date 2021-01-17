@@ -12,7 +12,7 @@ import os.path as osp
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
-
+import logging
 keypoint_score_thr = 0.0
 
 def save_img(img, path):
@@ -354,6 +354,7 @@ def vis_pred_ress(pred_ress, img_root, save_root):
             os.system(cmd)
 
 def vis_pred_crops(pred_ress, img_root, pose_root):
+    logging.info("Save crop images to {}".format(osp.join(pose_root, "crop_images")))
     dic_id_count = {}
     for res in pred_ress:
         img_path = osp.join(img_root, res['img_path'])

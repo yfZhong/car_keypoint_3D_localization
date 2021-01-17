@@ -3,7 +3,7 @@
 define arguments .
 
 History
-  create  -  Yongfeng Zhong (yongfeng_zhong@hotmail.com), 2019-10
+  create  -  Yongfeng Zhong (yongfeng_zhong@hotmail.com), 2019-11
 """
 
 import argparse
@@ -58,15 +58,20 @@ def parse_args():
         help="image root",
         default="./data/val/",
     )
-    # parser.add_argument(
-    #     "--img_list",
-    #     help="image path list",
-    #     default="./data/lists/val.txt",
-    # )
+    parser.add_argument(
+        "--model_root",
+        help="model root",
+        default="./models",
+    )
+    parser.add_argument(
+        "--camera_info_dir",
+        help="Path to CameraInfos",
+        default="./CameraInfos",
+    )
     parser.add_argument(
         "--hdfs_video_root",
         help="hdfs video root",
-        default="/hdfs_root/customer/NANLING/guangzhou/qybc/videos/processed/body/",
+        default="/prod/yfzhong/NANLING/guangzhou/qybc/videos/processed/body/",
     )
     parser.add_argument(
         "--video_root",
@@ -79,9 +84,19 @@ def parse_args():
         default="./data/annotations/keypoints_val.json",
     )
     parser.add_argument(
-        "--program_time_list",
-        help="customer info",
-        default="customer_list.txt",
+        "--store",
+        help="store name",
+        default="NANLING/guangzhou/qybc",
+    )
+    parser.add_argument(
+        "--date",
+        help="date time",
+        default="20201201",
+    )
+    parser.add_argument(
+        "--start_time",
+        help="image produced time",
+        default="130000",
     )
     parser.add_argument(
         "--save_root",

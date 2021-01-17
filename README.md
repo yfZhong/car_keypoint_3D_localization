@@ -15,28 +15,25 @@ Car Keypoint 3D Localization project provide methods for 3D car localization bas
 
 ## Parameters
 #### The entry main python script is `lib/pred_imgs.py` 
-| Parameters            | Require |             Notes                                                                                                                    |
-| --------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| --store               | Yes      | Store name |
-| --date                | Yes      | the date to processed |
-| --data_root           | Yes      | Input data root |
-| --model_root          | Yes      | model root |
-| --camera_info_dir     | Yes      | Camera calibration information root|
-| --save_root           | Yes      | folder for saving results |
-| --use_gpu             | Yes      | whether to use gpu or cpu |
-| --download_model      | Yes      | whether need to download model from hdfs |
-| --download_image      | Yes      |whether need to download image from hdfs |
-| --config-file-box     | Yes      | Path to car bbox detection model config file      |
-| --config-file-kp      | Yes      | Path to car keypoint detection model config file               |
-| --confidence-threshold| No       | Confidence threshold for car bbox output                   |
-| --min-image-size      | No       | Smallest size of the image to feed to the box model                     |
-| --min-image-size-kp   | No       | Smallest size of the image to feed to the keypoint model.                               |
-| --show-mask-heatmaps  | No       | Show a heatmap probability for the top masks-per-dim masks                   |
+| Parameters            | Require |             Notes                                             |
+| --------------------- | -------- | ------------------------------------------------------------ |
+| --store               | Yes      | Store name                                                   |
+| --date                | Yes      | the date to processed                                        |
+| --data_root           | Yes      | Input data root                                              |
+| --model_root          | Yes      | model root                                                   |
+| --camera_info_dir     | Yes      | Camera calibration information root                          |
+| --save_root           | Yes      | folder for saving results                                    |
+| --use_gpu             | Yes      | whether to use gpu or cpu                                    |
+| --download_model      | Yes      | whether need to download model from hdfs                     |
+| --download_image      | Yes      |whether need to download image from hdfs                      |
+| --config-file-box     | Yes      | Path to car bbox detection model config file                 |
+| --config-file-kp      | Yes      | Path to car keypoint detection model config file             |
+| --confidence-threshold| No       | Confidence threshold for car bbox output                     |
+| --min-image-size      | No       | Smallest size of the image to feed to the box model          |
+| --min-image-size-kp   | No       | Smallest size of the image to feed to the keypoint model.    |
+| --show-mask-heatmaps  | No       | Show a heatmap probability for the top masks-per-dim masks   |
 | --masks-per-dim       | Yes      | Number of heatmaps per dimension to show                     |
-| --img_root            | Yes      | Path to the input images
-| --program_time_list   | Yes      | Path to the file with Store and data. each line with `${brand}\t${city}\t${store}\t${date}\t${time}`               |
-| --save_root           | Yes      | Path for saving the output files 
-| --vis_preds           | No       | whether to visulaze the preditions or not
+| --vis_preds           | No       | whether to visulaze the preditions or not                    |
 
 ## Examples
 

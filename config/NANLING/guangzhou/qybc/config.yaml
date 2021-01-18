@@ -1,0 +1,18 @@
+{
+  "single_frame": {
+    "ch01008": {
+      "box_score_thr": 0.95,
+      "box_height_thr": 175,
+      "box_width_thr": 175,
+      "area_thr": 1000
+
+    },
+    "ch01011": {
+      "box_score_thr": 0.95,
+    },
+ },
+  "multi_frame_merge": {
+    "inside_pct":0.9,
+
+ }
+}

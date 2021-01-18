@@ -1,0 +1,21 @@
+{
+  "single_frame":{
+    "box_score_thr": 0.999,
+    "box_height_thr": 220,
+    "box_width_thr": 250,
+    "area_thr": 10000,
+    "inside_pct": 0.9,
+  },
+  "single_frame_merge": {
+    "iou_thr": 0.3,
+    "area_thr": 0.6,
+    "inside_pct": 0.8,
+ },
+  "multi_frame_merge": {
+    "num_frames": 30,
+    "iou_thr": 0.4,
+    "inside_pct": 0.8,
+    "overlap_iou_thr": 0.01,
+    "used_frame_pct": 0.23,
+ }
+}
